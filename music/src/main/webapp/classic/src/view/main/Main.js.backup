@@ -1,0 +1,69 @@
+Ext.define('MusicPlayer.view.main.Main', {
+	extend : 'Ext.tab.Panel',
+	xtype : 'app-main',
+
+	requires : [ 'Ext.plugin.Viewport', 'MusicPlayer.view.main.*', 'MusicPlayer.store.*', 'MusicPlayer.model.*' ],
+
+	controller : 'main',
+	viewModel : 'main',
+
+	ui : 'navigation',
+
+	tabBarHeaderPosition : 1,
+	titleRotation : 0,
+	tabRotation : 0,
+
+	header : {
+		layout : {
+			align : 'stretchmax'
+		},
+		title : {
+			bind : {
+				text : '{name}'
+			},
+			flex : 0
+		},
+		iconCls : 'fa-th-list'
+	},
+
+	tabBar : {
+		flex : 1,
+		layout : {
+			align : 'stretch',
+			overflowHandler : 'none'
+		}
+	},
+
+	headerPosition : 'left',
+
+	defaults : {
+		tabConfig : {
+			iconAlign : 'left',
+			textAlign : 'left'
+		}
+
+	},
+
+	items : [ {
+		xtype : 'musicPanel',
+		title : 'KPop',
+		storeType: 'kpopSong',
+		youtubeDivId: 'kpopPlayer'
+	}, {
+		xtype : 'musicPanel',
+		title : 'USPop',
+		storeType: 'usPopSong',
+		youtubeDivId: 'uspopPlayer'
+	},  {
+		xtype : 'musicPanel',
+		title : 'JPop',
+		storeType: 'jpopSong',
+		youtubeDivId: 'jpopPlayer'
+	} ],
+	
+	listeners: {
+		tabchange: function( tabPanel, newCard, oldCard) {
+			oldCard.fireEvent('pauseVideo');
+		}
+	}
+});
